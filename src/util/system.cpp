@@ -73,7 +73,8 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "bitcoin.conf";
+// AI Coin
+const char * const BITCOIN_CONF_FILENAME = "aicoin.conf";
 
 ArgsManager gArgs;
 
@@ -699,7 +700,8 @@ fs::path GetDefaultDataDir()
     return pathRet / "Library/Application Support/Bitcoin";
 #else
     // Unix
-    return pathRet / ".bitcoin";
+    // AI Coin
+    return pathRet / ".aicoin";
 #endif
 #endif
 }

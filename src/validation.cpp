@@ -1153,14 +1153,21 @@ bool ReadRawBlockFromDisk(std::vector<uint8_t>& block, const CBlockIndex* pindex
 
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
-    int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-    // Force block reward to zero when right shift is undefined.
-    if (halvings >= 64)
-        return 0;
+//   int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
+//   // Force block reward to zero when right shift is undefined.
+//    if (halvings >= 64)
+//        return 0;
+//
+//    CAmount nSubsidy = 50 * COIN;
+//    // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
+//    nSubsidy >>= halvings;
 
-    CAmount nSubsidy = 50 * COIN;
-    // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
-    nSubsidy >>= halvings;
+    // AI Coin
+    // premine 90 billion aicoins by rewarding 500 million each for the first 180 coins, and 1 coin reward thereafter
+    CAmount nSubsidy = 1 * COIN;
+    if (nHeight > 0 && nHeight <= 180) {
+        nSubsidy = 500000000 * COIN;
+    }
     return nSubsidy;
 }
 
@@ -1181,8 +1188,9 @@ bool IsInitialBlockDownload()
         return true;
     if (chainActive.Tip()->nChainWork < nMinimumChainWork)
         return true;
-    if (chainActive.Tip()->GetBlockTime() < (GetTime() - nMaxTipAge))
-        return true;
+    // AI Coin allow old mainnet blockchains to be used for testing
+ //   if (chainActive.Tip()->GetBlockTime() < (GetTime() - nMaxTipAge))
+ //       return true;
     LogPrintf("Leaving InitialBlockDownload (latching to false)\n");
     latchToFalse.store(true, std::memory_order_relaxed);
     return false;
@@ -3241,8 +3249,9 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
 
     // Check proof of work
     const Consensus::Params& consensusParams = params.GetConsensus();
-    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
-        return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
+    // AI Coin uses trivial proof-of-work, so do not check it
+//    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+//        return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 
     // Check against checkpoints
     if (fCheckpointsEnabled) {

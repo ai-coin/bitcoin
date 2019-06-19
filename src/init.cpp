@@ -97,7 +97,8 @@ static const char* FEE_ESTIMATES_FILENAME="fee_estimates.dat";
 /**
  * The PID file facilities.
  */
-static const char* BITCOIN_PID_FILENAME = "bitcoind.pid";
+// AI Coin
+static const char* BITCOIN_PID_FILENAME = "aicoind.pid";
 
 static fs::path GetPidFile()
 {
