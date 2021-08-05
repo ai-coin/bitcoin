@@ -106,7 +106,8 @@ static const char* DEFAULT_ASMAP_FILENAME="ip_asn.map";
 /**
  * The PID file facilities.
  */
-static const char* BITCOIN_PID_FILENAME = "bitcoind.pid";
+// AI Coin
+static const char* BITCOIN_PID_FILENAME = "aicoind.pid";
 
 static fs::path GetPidFile(const ArgsManager& args)
 {
