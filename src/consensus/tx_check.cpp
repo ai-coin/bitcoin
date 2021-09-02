@@ -45,10 +45,8 @@ bool CheckTransaction(const CTransaction& tx, TxValidationState& state)
     if (tx.IsCoinBase())
     {
         // AI Coin has a larger script size on its genesis coinbase transaction.
-        if (tx.vin[0].scriptSig.size() < 2 || tx.vin[0].scriptSig.size() > 120) {
-            printf("bad-cb-length scriptSig.size()  %d\n", tx.vin[0].scriptSig.size());
+        if (tx.vin[0].scriptSig.size() < 2 || tx.vin[0].scriptSig.size() > 100)
             return state.Invalid(TxValidationResult::TX_CONSENSUS, "bad-cb-length");
-        }
     }
     else
     {
